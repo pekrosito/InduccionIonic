@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{NamePage}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-card>
+    <ion-img src="/assets/shapes.svg"></ion-img>
+   <ion-card-header>
+     <ion-card-title>
+       {{TitleStorage}}
+     </ion-card-title>
+   </ion-card-header>
+   <ion-card-content>
+     <ion-list *ngFor="let product of productos" (click)="showProduct(product)">
+      <ion-item *ngIf="product.cantidad > 0" >
+        <ion-label>Producto: {{product.nombre}}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="product.cantidad > 0">
+          <ion-label>Disponibles: {{product.cantidad}}</ion-label>
+          <ion-label>Costo: {{product.precio}}</ion-label>
+      </ion-item>
+     </ion-list>
+   </ion-card-content>
+ </ion-card>
+</ion-content>
