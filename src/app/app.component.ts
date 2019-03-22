@@ -16,8 +16,8 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Ventas',
-      url: '/ventas',
+      title: 'Resumen de Ventas',
+      url: '/resumen-ventas',
       icon: 'logo-usd'
     },
     {

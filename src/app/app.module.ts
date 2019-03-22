@@ -1,3 +1,4 @@
+import { VentasPageModule } from './ventas/ventas.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -10,8 +11,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ClusterService } from './cluster.service';
-import { dataService } from './api/data.service';
+import { dataService } from '../api/data.service';
 import {HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    VentasPageModule
   ],
   providers: [
     StatusBar,

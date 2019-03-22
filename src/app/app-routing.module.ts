@@ -11,13 +11,9 @@ const routes: Routes = [
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
-  { path: 'modals', loadChildren: './modals/modals.module#ModalsPageModule' },
+  { path: 'almacen', loadChildren: './almacen/almacen.module#AlmacenPageModule' },
   { path: 'ventas', loadChildren: './ventas/ventas.module#VentasPageModule' },
-  { path: 'almacen', loadChildren: './almacen/almacen.module#AlmacenPageModule' }
+  { path: 'resumen-ventas', loadChildren: './resumen-ventas/resumen-ventas.module#ResumenVentasPageModule' }
 ];
 
 @NgModule({

@@ -20,32 +20,18 @@ export class ClusterService {
 
   /** GET obtenemos todos los clusters */
   getCluster(clusterUrl: string):Observable<any[]>{
-    return this.http.get<any[]>(this.cluster + clusterUrl)
-    .pipe(
-        tap(cluster => this.log('Error Consulta')),
-        catchError(this.handleError("Error con el servidor",[]))
-    )
+    return this.http.get<any[]>(this.cluster + clusterUrl);
   }
 
   /** GET obtenemos un cluster por su id. Devolvemos `undefined` cuando no exista */
   getClusterById(clustersUrl: string, id: any): Observable<any> {
-    const url = `${this.cluster + clustersUrl}/${id}`;
-    return this.http.get<any>(url)
-      .pipe( // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} cluster id=${id}`);
-        }),
-        catchError(this.handleError<any>(`getCluster id=${id}`))
-      );
+    const url = `${this.cluster + clustersUrl + id}`;
+    return this.http.get<any>(url);
   }
 
     /** POST: añadimos un nuevo cluster */
     addCluster (clustersUrl: string, cluster: any): Observable<any> {
-      return this.http.post<any>(this.cluster + clustersUrl, cluster, httpOptions).pipe(
-        tap((cluster: any) => this.log(`added cluster w/ id=${cluster.Id_user}`)),
-        catchError(this.handleError<any>('addCluster'))
-      );
+      return this.http.post<any>(this.cluster + clustersUrl, cluster, httpOptions);
     }
 
       /** DELETE: eliminamos un cluster */
@@ -53,18 +39,12 @@ export class ClusterService {
     const id = typeof cluster === 'number' ? cluster : cluster.Id_user;
     const url = `${this.cluster + clustersUrl}/${id}`;
 
-    return this.http.delete<any>(url).pipe(
-      tap(_ => this.log(`deleted cluster id=${id}`)),
-      catchError(this.handleError<any>('deleteCluster'))
-    );
+    return this.http.delete<any>(url);
   }
 
   updateCluster (clustersUrl: string, cluster: any): Observable<any> {
     const url = `${this.cluster + clustersUrl}/${cluster.Id_user}`;
-    return this.http.put<any>(url, cluster, httpOptions).pipe(
-      tap(_=> this.log(`updated cluster id=${cluster.Id_user}`)),
-      catchError(this.handleError<any>('updateCluster'))
-    );
+    return this.http.put<any>(url, cluster, httpOptions);
   }
 
   /**

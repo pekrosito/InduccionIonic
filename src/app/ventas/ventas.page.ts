@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ventas',
@@ -6,21 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ventas.page.scss'],
 })
 export class VentasPage implements OnInit {
-  ventas: any;
+  object: any;
+  title = "Vender producto"
 
-  constructor() { }
+  constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {
-    this.Initial();
+    console.log(this.object)
   }
 
-    Initial(){
-      this.ventas = [{
-        id_ventas:1, id_producto:1, cantidad:10
-      },{
-        id_ventas:2, id_producto:2, cantidad:22
-      },{
-        id_ventas:3, id_producto:3, cantidad:12
-      }]
-    }
+  closeModal()
+  {
+    this.modalCtrl.dismiss();
+  }
 }
