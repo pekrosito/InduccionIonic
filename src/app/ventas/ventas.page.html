@@ -8,5 +8,43 @@
 </ion-header>
 
 <ion-content>
-  {{object | json}}
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{object[0].nombre}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formSale">
+        <ion-item>
+          <ion-label position="floating">Referencia Producto</ion-label>
+          <ion-input type="text" formControlName="id_producto" readonly></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripcion</ion-label>
+          <ion-input type="text" formControlName="descripcion" readonly></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Precio</ion-label>
+          <ion-input type="text" formControlName="precio" readonly></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cantidad</ion-label>
+          <ion-input type="number" formControlName="cantidad" required min="1" (change)="calcular()"></ion-input>
+        </ion-item>
+      </form>
+      <ion-item>
+          <ion-label>Total</ion-label>
+          <ion-badge slot="end">{{total}}</ion-badge>
+        </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+        <ion-segment>
+        <ion-button [disabled]="!formSale.valid" (click)="sale()" color="dark">
+          Confirmar Venta
+          <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+          </ion-segment>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

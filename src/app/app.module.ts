@@ -14,6 +14,8 @@ import { ClusterService } from './cluster.service';
 import { dataService } from '../api/data.service';
 import {HttpClientModule} from "@angular/common/http";
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +32,7 @@ import {HttpClientModule} from "@angular/common/http";
     SplashScreen,
     ClusterService,
     dataService,
+    ReactiveFormsModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

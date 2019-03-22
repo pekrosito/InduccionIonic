@@ -10,23 +10,28 @@
 </ion-header>
 
 <ion-content>
- <ion-card>
+  <ion-card>
     <ion-img src="/assets/shapes.svg"></ion-img>
-   <ion-card-header>
-     <ion-card-title>
-       {{TitleStorage}}
-     </ion-card-title>
-   </ion-card-header>
-   <ion-card-content>
-     <ion-list *ngFor="let product of productos" (click)="showProduct(product)">
-      <ion-item *ngIf="product.cantidad > 0" >
-        <ion-label>Producto: {{product.nombre}}</ion-label>
-      </ion-item>
-      <ion-item *ngIf="product.cantidad > 0">
-          <ion-label>Disponibles: {{product.cantidad}}</ion-label>
-          <ion-label>Costo: {{product.precio}}</ion-label>
-      </ion-item>
-     </ion-list>
-   </ion-card-content>
- </ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{TitleStorage}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let product of productos" (click)="showProduct(product)">
+        <ion-item *ngIf="product.cantidad > 0" detail="true" text-wrap>
+          <ion-avatar slot="start">
+            <img src="/assets/shapes.svg">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{product.nombre}}</h2>
+            <p>
+                Disponibles: {{product.cantidad}}
+                Costo: {{product.precio}}
+              </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
