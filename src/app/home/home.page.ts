@@ -1,4 +1,6 @@
+
 import { Component } from '@angular/core';
+import { dataService } from '../api/data.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,7 @@ export class HomePage {
   TitleStorage = "Productos de la tienda de Petra"
   productos: any
 
-  constructor(){}
+  constructor(private api: dataService){}
 
   ngOnInit() {
     this.Initial()
@@ -18,21 +20,7 @@ export class HomePage {
 
   Initial(){
   //Mis metodos a llamado de BD
-  /*this.apiService.login().suscribe(
-      response => {data => this.productos.map(fnction(data) => data.)},
-      error => console.log("----")
-  );*/
-    this.productos = [{
-      producto_Id:1, nombre:"Cocosette", precio:"1300", 
-      cantidad:23,id_tipo_producto:2,oferta:0
-    },{
-      producto_Id:2, nombre:"Chocolate", precio:"1600", 
-      cantidad:0,id_tipo_producto:2,oferta:0
-    },{
-      producto_Id:3, nombre:"Doritos", precio:"1500", 
-      cantidad:23,id_tipo_producto:2,oferta:0
-    }]
-
+  this.api.getProducts().subscribe(data => { this.productos = data});
     console.log("data", this.productos  )
   }
 
