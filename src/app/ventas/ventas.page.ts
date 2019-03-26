@@ -58,19 +58,30 @@ export class VentasPage implements OnInit {
 
     this.presentLoading();
 
-    let data = {
+    let sale = {
       id_venta: 1,
       id_producto: this.formSale.value.id_producto,
       id_usuario: 1,
       cantidad: this.formSale.value.cantidad
       }
     
-    setTimeout(() => {
-      this.api.createSale(data).subscribe(
-        response => {console.log(response); this.loading.dismiss(); this.modalCtrl.dismiss()},
+      this.api.createSale(sale).subscribe(
+        response => { this.updateProduct(); },
         error => {console.log("error", error)}
       )
-    },1000)
+  }
+
+  updateProduct(){
+    let product = {
+      id_producto: this.formSale.value.id_producto,
+      cantidad: this.formSale.value.cantidad
+    }
+
+    this.api.createSale(product).subscribe(
+      response => {this.loading.dismiss(); this.modalCtrl.dismiss();},
+      error => {console.log("error", error)}
+    )
+    
   }
 
   closeModal()

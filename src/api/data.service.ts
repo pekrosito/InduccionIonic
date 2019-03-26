@@ -10,6 +10,7 @@ export class dataService {
   private urlCreateProduct = "createProduct";
   private urlGetProductByProductId = "getProductByProductId?id=";
   private urlCreateSale = "createSale";
+  private urlUpdateProduct = "updateProduct";
 
   getProducts(){
     return this.clusterService.getCluster(this.urlGetproduct);
@@ -22,7 +23,12 @@ export class dataService {
   getProductById(productId){
     return this.clusterService.getClusterById(this.urlGetProductByProductId, productId);
   }
+
   createSale(data){
     return this.clusterService.addCluster(this.urlCreateSale, data)
+  }
+
+  updateQuantityProduct(data){
+    return this.clusterService.updateCluster(this.urlUpdateProduct, data)
   }
 }

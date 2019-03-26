@@ -15,7 +15,8 @@ import { dataService } from '../api/data.service';
 import {HttpClientModule} from "@angular/common/http";
 
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SplashScreen,
     ClusterService,
     dataService,
-    ReactiveFormsModule,
+    ReactiveFormsModule,    
+    Camera,
+    PhotoLibrary,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
