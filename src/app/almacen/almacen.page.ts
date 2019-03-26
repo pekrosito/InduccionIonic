@@ -76,7 +76,7 @@ export class AlmacenPage implements OnInit {
       quality: 90,
       targetWidth: 1000,
       targetHeight: 1000,
-      width: 200,
+      width: 220,
       height: 200,
       encodingType: this.camera.EncodingType.JPEG,    
       //mediaType: this.camera.MediaType.PICTURE,  
