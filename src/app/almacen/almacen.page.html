@@ -1,33 +1,30 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Almacen</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
-    <ion-card>
-        <ion-card-content>
-            <ion-button (click)="getPicture()">Toma una foto</ion-button>
-            <ion-avatar slot="start" *ngIf="image">
-                <img src="{{image}}">
-              </ion-avatar>
-        </ion-card-content>
-      </ion-card>
-        <ion-card>
-            <ion-card-content>
-                <ion-button name="images" (click)="openGallery()">Abrir Galeria</ion-button>
-                <ion-avatar slot="start" *ngIf="imageSrc">
-                  <img src="{{imageSrc}}">
-                </ion-avatar>
-            </ion-card-content>
-          </ion-card> 
-        <ion-card>
-            <ion-card-content>
-                <ion-button (click)="openCam()" >Open Camera</ion-button>
-                <img src="{{image}}">
-            </ion-card-content>
-          </ion-card> 
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-button (click)="getPicture()">Toma una foto</ion-button>
+      <ion-avatar slot="start" *ngIf="image">
+        <img src="{{image}}">        
+      </ion-avatar>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-button name="images" (click)="openGallery()">Abrir Galeria</ion-button>
+      <ion-avatar slot="start" *ngIf="imageSrc">
+        <img src="{{imageSrc}}">
+      </ion-avatar>
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="saveProduct()">
+    Guardar foto
+  </ion-button>
 </ion-content>

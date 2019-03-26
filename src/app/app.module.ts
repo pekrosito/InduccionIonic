@@ -17,6 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { ReactiveFormsModule } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +37,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
     ReactiveFormsModule,    
     Camera,
     PhotoLibrary,
+    ImageResizer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

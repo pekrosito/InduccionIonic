@@ -21,7 +21,7 @@
       <ion-list *ngFor="let product of productos" (click)="showProduct(product)">
         <ion-item *ngIf="product.cantidad > 0" detail="true" text-wrap>
           <ion-avatar slot="start">
-            <img src="/assets/shapes.svg">
+            <img src="{{product.image}}">
           </ion-avatar>
           <ion-label>
             <h2>{{product.nombre}}</h2>
