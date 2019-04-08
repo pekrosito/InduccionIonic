@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class ClusterService {
 
-  private cluster = "http://localhost:6040/"
+  private cluster = "http://192.168.0.9:6040/"
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class ClusterService {
 
   /** GET obtenemos un cluster por su id. Devolvemos `undefined` cuando no exista */
   getClusterById(clustersUrl: string, id: any): Observable<any> {
-    const url = `${this.cluster + clustersUrl + id}`;
+    const url = `${this.cluster + clustersUrl + '?id='+ id}`;
     return this.http.get<any>(url);
   }
 
@@ -43,7 +43,7 @@ export class ClusterService {
   }
 
   updateCluster (clustersUrl: string, cluster: any): Observable<any> {
-    const url = `${this.cluster + clustersUrl}/${cluster.Id_user}`;
+    const url = `${this.cluster + clustersUrl + '?id='+cluster.id}`;
     return this.http.put<any>(url, cluster, httpOptions);
   }
 

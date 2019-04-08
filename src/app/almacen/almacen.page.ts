@@ -1,55 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
-import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';
 import { dataService } from '../../api/data.service';
+import { ActionSheetController, ToastController, ModalController } from '@ionic/angular';
+import { CrearProductoPage } from '../crear-producto/crear-producto.page';
 
 @Component({
   selector: 'app-almacen',
   templateUrl: './almacen.page.html',
   styleUrls: ['./almacen.page.scss'],
 })
-export class AlmacenPage implements OnInit {
-  image: string = null;
-  private imageSrc: string;
-  dataa: any;
+export class AlmacenPage implements OnInit {    
+  products: any;
 
-  constructor(private camera: Camera, private photoLibrary: PhotoLibrary, private api: dataService, private imageResizer: ImageResizer) { }
+  constructor(
+    private api: dataService
+    ,private actionSheetController: ActionSheetController
+    ,private tCtrl: ToastController
+    ,public modalController: ModalController
+    ) { }
 
   ngOnInit() {
-
+    this.loadItems()
   }
 
-  resize(uri){
-    let options = {
-      uri: uri,
-      folderName: 'Protonet',
-      quality: 90,
-      width: 1280,
-      height: 1280
-     } as ImageResizerOptions;
-     
-     this.imageResizer
-       .resize(options)
-       .then((filePath: string) => console.log('FilePath', filePath))
-       .catch(e => console.log(e));
-  }
-
-  getPicture(){
-    let options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      quality: 100
-    }
-
-    this.camera.getPicture( options )
-    .then(imageData => {
-      this.image = `data:image/jpeg;base64,${imageData}`;
-    })
-    .catch(error =>{
-      console.error( error );
-    });
+  loadItems(){
+    this.api.getProducts().subscribe(
+      response => {
+        let id = 0
+        this.products = response.map(product => {
+          product.index = id, 
+          id = id+1,
+          product.image = product.image === "null" ? "../../assets/product.png": product.image
+          return product;
+        });
+      },
+      error =>  {
+        console.log("Error al consultar los productos", error);
+        this.openToast('Error al consultar productos')
+      }
+    );
   }
 
   saveProduct(){
@@ -69,24 +57,89 @@ export class AlmacenPage implements OnInit {
     )
   }
 
-  private openGallery (): void {
-    let cameraOptions = {
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL,      
-      quality: 90,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      width: 220,
-      height: 200,
-      encodingType: this.camera.EncodingType.JPEG,    
-      //mediaType: this.camera.MediaType.PICTURE,  
-      correctOrientation: true
+  enableDisableProduct(product){
+    product.habilitado =  product.habilitado === 1 ? 0 : 1;
+    
+    let data = {
+      id : product.id_producto,
+      habilitado : product.habilitado
     }
-  
-    this.camera.getPicture(cameraOptions)
-      .then(FILE_URI => {this.imageSrc = `data:image/jpeg;base64,${FILE_URI}`; this.resize(this.imageSrc), console.log(this.imageSrc)}, 
-      err => console.log(err));   
+
+    this.api.enableDisableProduct(data).subscribe(
+      response => {
+        product.habilitado == 1 ? this.openToast('Producto habilitado') : this.openToast('Producto inhabilitado');
+    },
+      error =>  {
+        console.log("Error al consultar los productos", error);
+        product.habilitado == 1 ? 1 : 0;
+        this.openToast('Error al actualizar el producto')
+      }
+    );
   }
 
+  async openOptions(product) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones',
+      buttons: [{
+        text: 'Habilitar/Deshabilitar',
+        role: 'destructive',
+        icon: 'checkmark-circle-outline',
+        handler: () => {
+          this.enableDisableProduct(product);
+        }
+      }, {
+        text: 'Editar',
+        icon: 'create',
+        handler: () => {
+          this.editProduct(product);
+        }
+      }, {
+        text: 'Agregar',
+        icon: 'add-circle-outline',
+        handler: () => {
+          this.createProduct();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  async createProduct(){
+    const modal = await this.modalController.create({
+      component: CrearProductoPage,
+      componentProps: { product: null }
+    });
+
+    modal.onWillDismiss().then((data) => {this.loadItems()});
+
+    return await modal.present();
+  }
+
+  async editProduct(product){
+    const modal = await this.modalController.create({
+      component: CrearProductoPage,
+      componentProps: { product: product }
+    });
+
+    modal.onWillDismiss().then((data) => {this.loadItems()});
+
+    return await modal.present();
+  }
+
+  async openToast(string) {
+    const toast = await this.tCtrl.create({
+      message: string,
+      showCloseButton: true,
+      duration: 2500,
+      animated: true
+    });
+    toast.present();
+  }
 }
 

@@ -10,9 +10,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  NamePage = "Tienda de Petra"
-  TitleStorage = "Productos de la tienda de Petra"
+  NamePage = "Mi tiendita"
+  TitleStorage = "Productos de mi tiendita"
   productos: any
+  aqui: any;
 
   constructor(private api: dataService, public modalCtrl: ModalController){}
 
@@ -23,7 +24,18 @@ export class HomePage {
   Initial(){
   //Mis metodos a llamado de BD
     this.api.getProducts().subscribe(
-      response => {this.productos = response},
+      response => {this.productos = response.map(product => {
+        product.image = product.image === "null" ? "../../assets/product.png": product.image
+        return product;
+      });
+      this.productos.forEach(element => {
+        if(element.cantidad == 0 || element.habilitado == 0){
+          let i = this.productos.indexOf(element);
+          this.productos.splice(i, 1);
+        }
+      });
+      
+    },
       error =>  {console.log("Error", error)}
     );
   
@@ -31,17 +43,19 @@ export class HomePage {
 
   showProduct(product){
     this.api.getProductById(product.id_producto).subscribe(
-      response => {this.presentModal(response);},
+      response => {this.presentModal(response[0])},
       error => {console.log("showProduct", error)}
     );
   }
 
-  async presentModal(response) {
+  async presentModal(producto) {
     const modal = await this.modalCtrl.create({
       component: VentasPage,
-      componentProps: { object: response }
+      componentProps: { product: producto }
     });
     
+    modal.onWillDismiss().then((data) => {this.Initial()});
+
     return await modal.present();
   }
 }

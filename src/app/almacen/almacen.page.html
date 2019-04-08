@@ -9,22 +9,29 @@
 
 <ion-content>
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-label>Productos en el Almacen</ion-label>
+      </ion-card-title>
+      <ion-card-subtitle>
+        <ion-label>Puede modificar todos los aspectos de los productos presentados o agregar nuevos si lo desea</ion-label>
+      </ion-card-subtitle>
+    </ion-card-header>
     <ion-card-content>
-      <ion-button (click)="getPicture()">Toma una foto</ion-button>
-      <ion-avatar slot="start" *ngIf="image">
-        <img src="{{image}}">        
-      </ion-avatar>
+      <ion-list *ngFor="let product of products">
+        <ion-item (click)="openOptions(product)" [ngStyle]="{'color': product.habilitado === 1 ? '':'red'} ">
+          <ion-avatar slot="start">
+            <img src="{{product.image}}">
+          </ion-avatar>
+          <ion-label>
+              <h2>Producto: {{product.nombre}}</h2>
+              <p [ngStyle]="{'color': product.habilitado === 1 ? '':'red'} ">
+                Disponibles: {{product.cantidad}}
+                Habilitado: {{product.habilitado == 1 ? 'SI':'NO'}}
+              </p>
+            </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-card-content>
-      <ion-button name="images" (click)="openGallery()">Abrir Galeria</ion-button>
-      <ion-avatar slot="start" *ngIf="imageSrc">
-        <img src="{{imageSrc}}">
-      </ion-avatar>
-    </ion-card-content>
-  </ion-card>
-  <ion-button (click)="saveProduct()">
-    Guardar foto
-  </ion-button>
 </ion-content>

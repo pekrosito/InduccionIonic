@@ -8,9 +8,13 @@ export class dataService {
 
   private urlGetproduct = "getProducts";
   private urlCreateProduct = "createProduct";
-  private urlGetProductByProductId = "getProductByProductId?id=";
+  private urlGetProductByProductId = "getProductByProductId";
   private urlCreateSale = "createSale";
   private urlUpdateProduct = "updateProduct";
+  private urGetUsers = "getUsers";
+  private urlGetSalesProductByUser = "getSalesProductByUser";
+  private urlUpdateStateProduct = "updateStateProductById";
+  private urlUpdateProductSale = "updateProductSale";
 
   getProducts(){
     return this.clusterService.getCluster(this.urlGetproduct);
@@ -28,7 +32,23 @@ export class dataService {
     return this.clusterService.addCluster(this.urlCreateSale, data)
   }
 
-  updateQuantityProduct(data){
+  updateProduct(data){
     return this.clusterService.updateCluster(this.urlUpdateProduct, data)
+  }
+
+  getUsers(){
+    return this.clusterService.getCluster(this.urGetUsers);
+  }
+
+  getSalesProductByUser(userId){
+    return this.clusterService.getClusterById(this.urlGetSalesProductByUser, userId);
+  }
+
+  enableDisableProduct(product){
+    return this.clusterService.updateCluster(this.urlUpdateStateProduct, product);
+  }
+
+  updateProductSale(data){
+    return this.clusterService.updateCluster(this.urlUpdateProductSale, data);    
   }
 }

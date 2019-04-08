@@ -9,12 +9,14 @@
 
 <ion-content>
   <ion-card>
-      <ion-segment >
-          <img src="{{object[0].image}}" class="image_performance"/>
-      </ion-segment>
     <ion-card-header>
       <ion-card-title>
-        {{object[0].nombre}}
+        <ion-segment>
+          <img src="{{product.image}}" class="image_performance" />
+        </ion-segment>
+        <ion-segment>
+          {{product.nombre}}
+        </ion-segment>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -24,7 +26,7 @@
           <ion-input type="text" formControlName="id_producto" readonly></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Descripcion</ion-label>
+          <ion-label position="floating">Tipo de golosina</ion-label>
           <ion-input type="text" formControlName="descripcion" readonly></ion-input>
         </ion-item>
         <ion-item>
@@ -33,21 +35,23 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Cantidad</ion-label>
-          <ion-input type="number" formControlName="cantidad" required min="1" (change)="calcular()"></ion-input>
+          <ion-input type="number" formControlName="cantidad" required min="1" (ionChange)="calcular()"></ion-input>          
         </ion-item>
+        <div *ngIf="formSale.get('cantidad').hasError('max')"><p style="color:red">Solo tiene {{product.cantidad}} productos disponibles</p></div>
+        <div *ngIf="formSale.get('cantidad').hasError('min')"><p style="color:red">Agregue una cantidad para vender</p></div>
       </form>
       <ion-item>
-          <ion-label>Total</ion-label>
-          <ion-badge slot="end">{{total}}</ion-badge>
-        </ion-item>
+        <ion-label>Total</ion-label>
+        <ion-badge slot="end">{{total}}</ion-badge>
+      </ion-item>
     </ion-card-content>
     <ion-card-content>
-        <ion-segment>
+      <ion-segment>
         <ion-button [disabled]="!formSale.valid" (click)="sale()" color="dark">
           Confirmar Venta
           <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
         </ion-button>
-          </ion-segment>
+      </ion-segment>
     </ion-card-content>
   </ion-card>
 </ion-content>

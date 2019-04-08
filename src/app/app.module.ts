@@ -18,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';
+import { CrearProductoPageModule } from './crear-producto/crear-producto.module';
+import { AlmacenPageModule } from './almacen/almacen.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +29,9 @@ import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/n
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    VentasPageModule
+    VentasPageModule,
+    CrearProductoPageModule,
+    AlmacenPageModule
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{action}} producto</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon slot="end" name="close" (click)="closeModal()" padding-end></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-segment>        
+        <img src="{{product.image}}" class="image_performance"/>
+      </ion-segment>
+      <ion-segment>
+        <ion-button color="medium" (click)="getPicture()">{{action}} imagen</ion-button>
+      </ion-segment>
+      <ion-card-subtitle>
+        <p>Al modificar el producto, las ventas realizadas se mostrarán en el sistema con los datos anteriores.</p>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formProduct">
+        <ion-item>
+          <ion-label position="floating">Cantidad disponible:</ion-label>
+          <ion-input type="text" formControlName="cantidad"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Nombre del producto:</ion-label>
+          <ion-input type="text" formControlName="nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Precio:</ion-label>
+          <ion-input type="text" formControlName="precio"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Habilitado:</ion-label>
+          <ion-toggle formControlName="habilitado"></ion-toggle>
+        </ion-item>
+      </form>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-segment>
+        <ion-button [disabled]="!formProduct.valid" (click)="saveProduct()" color="dark">
+          {{action}} producto
+          <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+          </ion-segment>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

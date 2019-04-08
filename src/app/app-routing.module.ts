@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   { path: 'almacen', loadChildren: './almacen/almacen.module#AlmacenPageModule' },
   { path: 'ventas', loadChildren: './ventas/ventas.module#VentasPageModule' },
-  { path: 'resumen-ventas', loadChildren: './resumen-ventas/resumen-ventas.module#ResumenVentasPageModule' }
+  { path: 'resumen-ventas', loadChildren: './resumen-ventas/resumen-ventas.module#ResumenVentasPageModule' },  { path: 'crear-producto', loadChildren: './crear-producto/crear-producto.module#CrearProductoPageModule' }
+
 ];
 
 @NgModule({

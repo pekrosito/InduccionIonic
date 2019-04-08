@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-card>
-    <ion-img src="/assets/shapes.svg"></ion-img>
+    <ion-img src="/assets/tienda_petra.png"></ion-img>
     <ion-card-header>
       <ion-card-title>
         {{TitleStorage}}
@@ -19,7 +19,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list *ngFor="let product of productos" (click)="showProduct(product)">
-        <ion-item *ngIf="product.cantidad > 0" detail="true" text-wrap>
+        <ion-item detail="true" text-wrap>
           <ion-avatar slot="start">
             <img src="{{product.image}}">
           </ion-avatar>
